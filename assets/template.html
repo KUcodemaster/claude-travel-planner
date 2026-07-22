@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a5a6b" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1a20" media="(prefers-color-scheme: dark)">
+<meta name="description" content="2026년 10월 시드니 7일 여행 · J/P 모드 · 예매·맛집 · 검토반영">
+<title>시드니 7일 여행 · 2026년 10월</title>
+<style>
+  :root{
+    --harbour:#0a5a6b; --harbour-2:#0d7186;
+    --jacaranda:#6b5bd0; --coral:#e8895f;
+    --sand:#f4efe4; --paper:#fbf8f1; --ink:#15232b; --muted:#5d6b70;
+    --line:#e2dccd; --chip:#ece5d5; --shadow:rgba(21,35,43,.09);
+    --sky-a:#bfe3ea; --sky-b:#eaf4ee; /* SVG 하늘 (라이트) */
+    --ok:#3a9d78;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --sand:#0f1a20; --paper:#152229; --ink:#eef2ee; --muted:#9fb0b4;
+      --line:#26343b; --chip:#1c2b32; --shadow:rgba(0,0,0,.4);
+      --harbour:#3fb0c4; --harbour-2:#5cc6d8; --jacaranda:#9b8ff0; --coral:#f0a07d;
+      --sky-a:#12333c; --sky-b:#0f2229; --ok:#54c199;
+    }
+  }
+  :root[data-theme="dark"]{
+    --sand:#0f1a20; --paper:#152229; --ink:#eef2ee; --muted:#9fb0b4;
+    --line:#26343b; --chip:#1c2b32; --shadow:rgba(0,0,0,.4);
+    --harbour:#3fb0c4; --harbour-2:#5cc6d8; --jacaranda:#9b8ff0; --coral:#f0a07d;
+    --sky-a:#12333c; --sky-b:#0f2229; --ok:#54c199;
+  }
+  :root[data-theme="light"]{
+    --harbour:#0a5a6b; --harbour-2:#0d7186; --jacaranda:#6b5bd0; --coral:#e8895f;
+    --sand:#f4efe4; --paper:#fbf8f1; --ink:#15232b; --muted:#5d6b70;
+    --line:#e2dccd; --chip:#ece5d5; --shadow:rgba(21,35,43,.09);
+    --sky-a:#bfe3ea; --sky-b:#eaf4ee; --ok:#3a9d78;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--sand);color:var(--ink);
+    font-family:"Segoe UI Variable","Segoe UI","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased;letter-spacing:-.006em}
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px 90px}
+  a{color:inherit}
+
+  /* HERO */
+  header.hero{padding:52px 0 26px}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-size:.72rem;font-weight:700;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--harbour)}
+  .kicker::before{content:"";width:26px;height:2px;background:var(--jacaranda)}
+  h1{font-family:Georgia,"Times New Roman",serif;font-weight:600;
+    font-size:clamp(2.2rem,6.5vw,3.5rem);line-height:1.05;margin:.28em 0 .12em;
+    letter-spacing:-.02em;text-wrap:balance}
+  h1 em{font-style:italic;color:var(--jacaranda)}
+  .dek{color:var(--muted);font-size:1.02rem;max-width:60ch;margin:0 0 24px}
+  .facts{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;background:var(--paper);box-shadow:0 1px 0 var(--shadow)}
+  .fact{flex:1 1 130px;padding:14px 18px;border-right:1px solid var(--line)}
+  .fact:last-child{border-right:none}
+  .fact .k{font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .fact .v{font-size:1.15rem;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+  .fact .v small{font-size:.78rem;color:var(--muted);font-weight:500}
+
+  /* 진행률 */
+  .progress-wrap{margin:26px 0 6px;background:var(--paper);border:1px solid var(--line);
+    border-radius:13px;padding:15px 18px;display:flex;align-items:center;gap:16px}
+  .progress-wrap .txt{font-size:.82rem;color:var(--muted);white-space:nowrap}
+  .progress-wrap .txt b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .pbar{flex:1;height:9px;background:var(--chip);border-radius:6px;overflow:hidden}
+  .pbar > i{display:block;height:100%;width:0;border-radius:6px;
+    background:linear-gradient(90deg,var(--jacaranda),var(--harbour));transition:width .4s ease}
+  .reset{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;
+    padding:5px 11px;font-size:.75rem;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .reset:hover{color:var(--ink);border-color:var(--muted)}
+
+  /* 탭 */
+  .tabs{display:flex;gap:7px;overflow-x:auto;padding:22px 2px 6px;scrollbar-width:thin;
+    scroll-snap-type:x proximity}
+  .tab{flex:0 0 auto;scroll-snap-align:start;background:var(--paper);border:1px solid var(--line);
+    border-radius:11px;padding:9px 14px;cursor:pointer;font-family:inherit;color:var(--muted);
+    display:flex;flex-direction:column;align-items:center;gap:1px;min-width:62px;transition:all .15s}
+  .tab:hover{border-color:var(--jacaranda);color:var(--ink)}
+  .tab .d{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+  .tab .n{font-size:1.15rem;font-weight:800;font-family:Georgia,serif;line-height:1.1}
+  .tab .dow{font-size:.66rem;color:var(--muted)}
+  .tab[aria-selected="true"]{background:linear-gradient(150deg,var(--jacaranda),var(--harbour));
+    color:#fff;border-color:transparent;box-shadow:0 4px 14px var(--shadow)}
+  .tab[aria-selected="true"] .dow{color:rgba(255,255,255,.85)}
+  .tab.done::after{content:"✓";position:relative;font-size:.7rem;color:var(--ok);font-weight:900}
+  .tab[aria-selected="true"].done::after{color:#fff}
+
+  /* 패널 */
+  .panel{display:none}
+  .panel.active{display:block;animation:fade .35s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.panel.active{animation:none}}
+
+  .daycard{background:var(--paper);border:1px solid var(--line);border-radius:18px;
+    overflow:hidden;box-shadow:0 3px 18px var(--shadow)}
+  svg{max-width:100%}
+  .hero-illus{display:block;width:100%;height:auto;aspect-ratio:800/190}
+  .daybody{padding:22px 22px 20px}
+  .day-head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+  .day-head .badge{flex-shrink:0;font-size:.68rem;font-weight:800;letter-spacing:.1em;
+    text-transform:uppercase;color:#fff;background:var(--harbour);padding:4px 10px;border-radius:999px}
+  .day-head h2{font-family:Georgia,serif;font-weight:600;font-size:1.32rem;margin:0;letter-spacing:-.01em}
+  .day-theme{color:var(--harbour);font-size:.86rem;font-weight:600;margin:0 0 16px}
+
+  .blocks{display:flex;flex-direction:column;gap:4px}
+  .blk{display:grid;grid-template-columns:26px 86px 1fr;gap:12px;align-items:start;
+    padding:11px 0;border-top:1px solid var(--line)}
+  .blk:first-child{border-top:none}
+  /* 이동 블록: 배경·점선으로 구분 */
+  .blk.move{background:linear-gradient(90deg,transparent,var(--chip) 40%);border-radius:10px;
+    padding:9px 8px;margin:1px 0;border-top:1px dashed var(--line)}
+  .blk.move + .blk{border-top:1px solid var(--line)}
+  .blk.move .what b{font-weight:600;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+  .moveicon{width:14px;height:14px;vertical-align:-2px;color:var(--harbour);flex-shrink:0}
+  .chk{width:22px;height:22px;border:2px solid var(--line);border-radius:7px;background:var(--paper);
+    cursor:pointer;display:grid;place-items:center;padding:0;margin-top:1px;transition:all .15s}
+  .chk:hover{border-color:var(--jacaranda)}
+  .chk[aria-pressed="true"]{background:var(--ok);border-color:var(--ok)}
+  .chk svg{width:12px;height:12px;opacity:0;transition:opacity .15s}
+  .chk[aria-pressed="true"] svg{opacity:1}
+  .blk .when{display:flex;flex-direction:column;gap:3px;padding-top:2px;
+    font-variant-numeric:tabular-nums}
+  .blk .when{font-size:.78rem;font-weight:800;letter-spacing:-.01em;color:var(--jacaranda)}
+  .blk .when .dur{font-size:.66rem;font-weight:700;color:var(--muted);background:var(--chip);
+    border-radius:6px;padding:1px 6px;align-self:flex-start;letter-spacing:0}
+  .blk.move .when{color:var(--harbour)}
+  .blk .what{font-size:.95rem}
+  .blk .what b{font-weight:700}
+  .blk.checked .what b{text-decoration:line-through;text-decoration-color:var(--muted)}
+  .blk .what .note{color:var(--muted);font-size:.85rem;display:block;margin-top:1px}
+  .blk .what .maplink{display:inline-flex;align-items:center;gap:4px;margin-top:5px;font-size:.76rem;
+    font-weight:700;color:var(--harbour);text-decoration:none;border-bottom:1px solid transparent}
+  .blk .what .maplink:hover{border-bottom-color:var(--harbour)}
+  .blk .what .maplink svg{width:12px;height:12px;vertical-align:-1px}
+  /* 예매 링크 */
+  .booking{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:9px}
+  .booking .booklab{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;font-weight:800;
+    color:var(--jacaranda);letter-spacing:.02em}
+  .booking .booklab svg{width:14px;height:14px}
+  .bookbtn{font-size:.76rem;font-weight:700;color:#fff;text-decoration:none;
+    background:var(--jacaranda);border-radius:8px;padding:4px 11px;line-height:1.4;
+    transition:transform .1s,filter .15s;white-space:nowrap}
+  .bookbtn:hover{filter:brightness(1.08)}
+  .bookbtn:active{transform:scale(.96)}
+  .bookbtn:focus-visible{outline:2px solid var(--harbour);outline-offset:2px}
+  /* 근처 맛집·카페 */
+  .eat{margin-top:11px;background:var(--chip);border-radius:11px;padding:11px 12px}
+  .eatlab{display:flex;align-items:center;gap:5px;font-size:.74rem;font-weight:800;
+    color:var(--coral);margin-bottom:8px}
+  .eatlab svg{width:14px;height:14px}
+  .eatlab small{color:var(--muted);font-weight:600}
+  .eatspots{display:flex;flex-direction:column;gap:6px}
+  .eatspot{display:flex;flex-direction:column;gap:1px;text-decoration:none;
+    background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 11px;
+    transition:border-color .15s,transform .08s}
+  .eatspot:hover{border-color:var(--coral)}
+  .eatspot:active{transform:scale(.99)}
+  .eatspot b{font-size:.86rem;color:var(--ink);font-weight:700}
+  .eatspot b::after{content:" ↗";font-size:.7rem;color:var(--coral);font-weight:700}
+  .eatspot span{font-size:.76rem;color:var(--muted)}
+  .eatmore{display:inline-block;margin-top:8px;font-size:.76rem;font-weight:700;
+    color:var(--coral);text-decoration:none;border-bottom:1px dashed transparent}
+  .eatmore:hover{border-bottom-color:var(--coral)}
+  .eatspot:focus-visible,.eatmore:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+
+  .daytips{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .tip{font-size:.75rem;font-weight:600;color:var(--harbour);background:var(--chip);
+    border-radius:8px;padding:5px 10px}
+  .tip.coral{color:var(--coral)}
+  .tip .lab{color:var(--muted);font-weight:700;margin-right:3px}
+
+  .navbtns{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .navbtn{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:9px 16px;
+    font-family:inherit;font-size:.85rem;font-weight:600;color:var(--ink);cursor:pointer;transition:all .15s}
+  .navbtn:hover:not(:disabled){border-color:var(--jacaranda)}
+  .navbtn:disabled{opacity:.35;cursor:default}
+
+  /* 실용 정보 */
+  .seclabel{display:flex;align-items:baseline;gap:12px;margin:46px 0 6px}
+  .seclabel h2{font-family:Georgia,serif;font-weight:600;font-size:1.3rem;margin:0}
+  .seclabel .rule{flex:1;height:1px;background:var(--line)}
+  .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:20px}
+  .info{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .info h3{margin:0 0 8px;font-size:.95rem;display:flex;align-items:center;gap:8px}
+  .info h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--harbour)}
+  .info h3 .dot.j{background:var(--jacaranda)} .info h3 .dot.c{background:var(--coral)}
+  .info ul{margin:0;padding-left:1.05em;font-size:.87rem;color:var(--muted)}
+  .info ul li{margin:4px 0} .info ul li b{color:var(--ink);font-weight:700}
+  .budget{width:100%;border-collapse:collapse;font-size:.88rem}
+  .budget td{padding:6px 4px;border-bottom:1px solid var(--line)}
+  .budget td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+  .budget tfoot td{font-weight:800;border-bottom:none;color:var(--harbour)}
+  .callout{margin-top:16px;border-left:3px solid var(--coral);background:var(--chip);
+    border-radius:0 10px 10px 0;padding:13px 16px;font-size:.86rem;color:var(--muted)}
+  .callout b{color:var(--ink)}
+  footer{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);
+    font-size:.76rem;line-height:1.8}
+
+  /* ── 태블릿 ── */
+  @media (max-width:768px){
+    .wrap{padding:0 16px 72px}
+    header.hero{padding:40px 0 22px}
+    .info-grid{grid-template-columns:1fr 1fr}
+  }
+  /* ── 모바일 ── */
+  @media (max-width:560px){
+    .wrap{padding:0 14px 64px}
+    header.hero{padding:32px 0 20px}
+    h1{font-size:1.9rem}
+    .dek{font-size:.95rem;margin-bottom:20px}
+    /* 통계: 2×2 그리드로 */
+    .facts{flex-wrap:wrap}
+    .fact{flex:1 1 50%;border-right:1px solid var(--line)}
+    .fact:nth-child(2n){border-right:none}
+    .fact:nth-child(-n+2){border-bottom:1px solid var(--line)}
+    /* 진행률 바: 리셋 버튼 줄바꿈 */
+    .progress-wrap{flex-wrap:wrap;gap:10px 14px;padding:14px}
+    .progress-wrap .pbar{flex:1 1 100%;order:3}
+    /* 탭: 스크롤 강조, 조금 작게 */
+    .tabs{gap:6px;padding:18px 0 6px;-webkit-overflow-scrolling:touch}
+    .tab{min-width:54px;padding:8px 11px}
+    .tab .n{font-size:1.05rem}
+    .daybody{padding:18px 16px 18px}
+    .day-head h2{font-size:1.18rem}
+    /* 블록: 시각+소요를 위로 올려 가로 배치, 내용은 아래 (좁은 폭 대응) */
+    .blk{grid-template-columns:26px 1fr;gap:10px}
+    .blk .when{grid-column:2;order:-1;flex-direction:row;align-items:center;gap:8px;padding-top:0;margin-bottom:1px}
+    .blk .when .dur{align-self:center}
+    .blk .what{grid-column:2}
+    .blk.move{padding:9px 10px}
+    .info-grid{grid-template-columns:1fr}
+    .navbtn{flex:1;text-align:center}
+  }
+  /* ── 소형 폰 ── */
+  @media (max-width:380px){
+    h1{font-size:1.65rem}
+    .fact .v{font-size:1.02rem}
+    .tab{min-width:48px;padding:7px 9px}
+    .blk .what{font-size:.9rem}
+  }
+  /* ═══ 모드 전환 J/P ═══ */
+  .modes{display:flex;gap:10px;margin:22px 0 4px}
+  .mode{flex:1;display:flex;align-items:center;gap:12px;background:var(--paper);
+    border:1.5px solid var(--line);border-radius:14px;padding:13px 16px;cursor:pointer;
+    font-family:inherit;color:var(--ink);text-align:left;transition:border-color .15s,background .15s}
+  .mode:hover{border-color:var(--jacaranda)}
+  .mode .ml{flex-shrink:0;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+    font-family:Georgia,serif;font-weight:800;font-size:1.3rem;background:var(--chip);color:var(--muted);transition:all .15s}
+  .mode .mt{display:flex;flex-direction:column;line-height:1.25;font-weight:700;font-size:.95rem}
+  .mode .mt small{font-weight:500;font-size:.72rem;color:var(--muted)}
+  .mode[aria-selected="true"]{border-color:transparent;
+    background:linear-gradient(150deg,var(--jacaranda),var(--harbour));color:#fff}
+  .mode[aria-selected="true"] .ml{background:rgba(255,255,255,.22);color:#fff}
+  .mode[aria-selected="true"] .mt small{color:rgba(255,255,255,.85)}
+  #pview[hidden],#jview[hidden]{display:none}
+  .pintro{color:var(--muted);font-size:.9rem;margin:18px 2px 16px}
+  /* P 뷰 지역 카드 */
+  .area{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    box-shadow:0 3px 18px var(--shadow);margin-bottom:18px}
+  .area-body{padding:20px 20px 18px}
+  .area-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .area-head h2{font-family:Georgia,serif;font-weight:600;font-size:1.3rem;margin:0}
+  .area-tag{font-size:.7rem;font-weight:800;letter-spacing:.04em;color:#fff;
+    background:var(--jacaranda);border-radius:999px;padding:3px 10px}
+  .area-desc{color:var(--muted);font-size:.9rem;margin:8px 0 16px}
+  .area-sec{margin-top:14px}
+  .area-lab{display:flex;align-items:center;gap:6px;font-size:.74rem;font-weight:800;
+    color:var(--harbour);margin-bottom:9px}
+  .area-lab.eat{color:var(--coral)}
+  .area-lab svg{width:14px;height:14px}
+  .pplaces{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .pplace{display:flex;flex-direction:column;gap:1px;text-decoration:none;
+    background:var(--card2,var(--chip));border:1px solid var(--line);border-radius:10px;padding:10px 12px;
+    transition:border-color .15s,transform .08s}
+  .pplace:hover{border-color:var(--harbour)} .pplace:active{transform:scale(.99)}
+  .pplace b{font-size:.88rem;color:var(--ink);font-weight:700}
+  .pplace b::after{content:" ↗";font-size:.7rem;color:var(--harbour)}
+  .pplace span{font-size:.76rem;color:var(--muted)}
+  .peats{display:flex;flex-wrap:wrap;gap:8px}
+  .peat{display:inline-flex;flex-direction:column;text-decoration:none;
+    background:var(--chip);border:1px solid var(--line);border-radius:10px;padding:8px 12px;
+    font-size:.84rem;font-weight:700;color:var(--ink);transition:border-color .15s}
+  .peat:hover{border-color:var(--coral)}
+  .peat small{font-weight:500;font-size:.72rem;color:var(--muted)}
+  .pplace:focus-visible,.peat:focus-visible{outline:2px solid var(--jacaranda);outline-offset:2px}
+  @media (max-width:560px){ .pplaces{grid-template-columns:1fr} .modes .mt small{display:none} }
+
+  /* ═══ 진입 인트로 애니메이션 ═══ */
+  .intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;
+    background:
+      radial-gradient(900px 500px at 50% 30%, rgba(123,108,246,.18), transparent 65%),
+      var(--sand);
+    animation:introOut .7s ease 3.1s forwards}
+  .intro-inner{text-align:center;padding:24px;max-width:420px;width:100%}
+  .flightpath{position:relative;height:44px;margin-bottom:14px}
+  .flightpath .dash{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(320px,86%);height:40px;opacity:0;animation:dashIn .5s ease .5s forwards}
+  .plane{position:absolute;top:2px;width:54px;height:54px;
+    left:-70px;animation:fly 2.4s cubic-bezier(.5,.05,.4,1) .35s forwards;
+    filter:drop-shadow(0 6px 8px rgba(21,35,43,.18))}
+  @keyframes fly{
+    0%{left:-70px;transform:translateY(6px) rotate(-2deg)}
+    20%{transform:translateY(-2px) rotate(-8deg)}
+    60%{transform:translateY(-8px) rotate(-8deg)}
+    100%{left:calc(100% + 30px);transform:translateY(-14px) rotate(-10deg)}
+  }
+  @keyframes dashIn{to{opacity:1}}
+  .ticket{position:relative;display:inline-flex;text-align:left;
+    filter:drop-shadow(0 14px 30px rgba(21,35,43,.22));
+    transform:scale(.7) translateY(16px);opacity:0;
+    animation:ticketPop .7s cubic-bezier(.18,.9,.32,1.3) .9s forwards}
+  @keyframes ticketPop{to{transform:scale(1) translateY(0);opacity:1}}
+  .ticket-main{background:var(--paper);border-radius:16px 0 0 16px;padding:16px 18px;
+    border:1px solid var(--line);border-right:none;min-width:210px}
+  .ticket-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .tair{font-weight:800;font-size:.82rem;color:var(--harbour);letter-spacing:.02em}
+  .tclass{font-size:.6rem;font-weight:800;letter-spacing:.14em;color:#fff;
+    background:var(--jacaranda);border-radius:999px;padding:3px 8px}
+  .ticket-route{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}
+  .ticket-route .port{text-align:center}
+  .ticket-route .port b{display:block;font-size:1.5rem;font-weight:800;font-family:Georgia,serif;color:var(--ink);line-height:1}
+  .ticket-route .port small{font-size:.66rem;color:var(--muted)}
+  .ticket-route .tplane{color:var(--coral);font-size:1.1rem;position:relative;flex:1;text-align:center}
+  .ticket-route .tplane::before{content:"";position:absolute;left:6px;right:6px;top:50%;height:0;
+    border-top:2px dotted var(--line);z-index:0}
+  .ticket-route .tplane{z-index:1}
+  .ticket-info{display:flex;gap:14px}
+  .ticket-info div{display:flex;flex-direction:column}
+  .ticket-info small{font-size:.56rem;letter-spacing:.1em;color:var(--muted);font-weight:700}
+  .ticket-info b{font-size:.74rem;color:var(--ink);font-weight:700}
+  .ticket-stub{background:var(--harbour);border-radius:0 16px 16px 0;padding:16px 14px;
+    display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:10px;
+    position:relative;color:#fff}
+  .ticket-stub::before{content:"";position:absolute;left:-1px;top:0;bottom:0;
+    border-left:2px dashed var(--sand)}
+  .barcode{width:8px;flex:1;min-height:52px;
+    background:repeating-linear-gradient(180deg,#fff 0 3px,transparent 3px 6px);opacity:.9}
+  .seat{font-size:.56rem;font-weight:800;letter-spacing:.08em;writing-mode:vertical-rl;transform:rotate(180deg);opacity:.9}
+  .intro-cap{margin:26px 0 4px;font-weight:700;color:var(--ink);opacity:0;
+    animation:capIn .5s ease 1.5s forwards}
+  @keyframes capIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .intro-skip{margin-top:8px;background:none;border:none;color:var(--muted);font-family:inherit;
+    font-size:.8rem;font-weight:600;cursor:pointer;opacity:0;animation:capIn .5s ease 1.8s forwards}
+  .intro-skip:hover{color:var(--harbour)}
+  @keyframes introOut{to{opacity:0;visibility:hidden}}
+  .intro.hide{animation:none;opacity:0;visibility:hidden;pointer-events:none}
+  /* 인트로 동안 본문 스크롤 잠금 */
+  body.introlock{overflow:hidden}
+  @media (prefers-reduced-motion:reduce){
+    .intro{animation:none;opacity:0;visibility:hidden;pointer-events:none}
+    .plane,.ticket,.dash,.intro-cap,.intro-skip{animation:none}
+  }
+</style>
+</head>
+<body>
+<div class="intro" id="intro" role="dialog" aria-label="여행 인트로">
+  <div class="intro-inner">
+    <!-- 비행기 궤적 (점선) -->
+    <div class="flightpath">
+      <svg class="dash" viewBox="0 0 320 40" aria-hidden="true">
+        <path d="M6 34 C 90 34, 120 8, 200 8 S 300 6, 314 6" fill="none"
+          stroke="var(--jacaranda)" stroke-width="3" stroke-linecap="round"
+          stroke-dasharray="6 9" opacity=".55"/>
+      </svg>
+      <!-- 귀여운 비행기 -->
+      <svg class="plane" viewBox="0 0 64 64" aria-hidden="true">
+        <g transform="rotate(-8 32 32)">
+          <ellipse cx="32" cy="36" rx="22" ry="9" fill="var(--coral)"/>
+          <path d="M12 36 q-9 -2 -12 3 q7 3 12 1 z" fill="var(--coral)" opacity=".85"/>
+          <path d="M30 28 l10 -12 l4 2 l-6 12 z" fill="var(--harbour)"/>
+          <path d="M30 44 l10 12 l4 -2 l-6 -12 z" fill="var(--harbour)"/>
+          <circle cx="40" cy="35" r="2.4" fill="#fff"/>
+          <circle cx="30" cy="35" r="2.4" fill="#fff"/>
+          <circle cx="20" cy="35" r="2.4" fill="#fff"/>
+        </g>
+      </svg>
+    </div>
+    <!-- 가운데 항공권(보딩패스) -->
+    <div class="ticket" aria-hidden="true">
+      <div class="ticket-main">
+        <div class="ticket-top">
+          <span class="tair">✈ SYDNEY AIR</span>
+          <span class="tclass">BOARDING</span>
+        </div>
+        <div class="ticket-route">
+          <div class="port"><b>ICN</b><small>서울</small></div>
+          <div class="tplane">✈</div>
+          <div class="port"><b>SYD</b><small>시드니</small></div>
+        </div>
+        <div class="ticket-info">
+          <div><small>DATE</small><b>10 OCT 2026</b></div>
+          <div><small>GUEST</small><b>2 ADULTS</b></div>
+          <div><small>DAYS</small><b>7</b></div>
+        </div>
+      </div>
+      <div class="ticket-stub">
+        <div class="barcode"></div>
+        <span class="seat">SYD ✦ 10.3</span>
+      </div>
+    </div>
+    <p class="intro-cap">즐거운 시드니 여행 준비 완료! ✨</p>
+    <button class="intro-skip" id="introSkip" type="button">건너뛰기 →</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="kicker">7일 · 시드니 &amp; 근교</span>
+    <h1>봄의 시드니,<br><em>물빛과 보랏빛</em> 사이</h1>
+    <p class="dek">10월 초 시드니는 자카란다가 피기 시작하고 서머타임으로 저녁이 길어지는, 1년 중 가장 걷기 좋은 계절입니다. 성인 2인 · 표준 예산 · 도시와 자연을 반씩 담은 7일 일정입니다.</p>
+    <div class="facts">
+      <div class="fact"><div class="k">여행 기간</div><div class="v">10.3–10.9 <small>토→금</small></div></div>
+      <div class="fact"><div class="k">거점</div><div class="v">시드니 <small>NSW</small></div></div>
+      <div class="fact"><div class="k">근교</div><div class="v">2회 <small>블루마운틴·헌터밸리</small></div></div>
+      <div class="fact"><div class="k">1인 예산</div><div class="v">A$220<small>/일</small></div></div>
+    </div>
+
+  </header>
+
+  <!-- 여행 스타일 모드: J(계획형) / P(탐색형) -->
+  <div class="modes" role="tablist" aria-label="여행 스타일">
+    <button class="mode" id="modeJ" role="tab" aria-selected="true" type="button">
+      <span class="ml">J</span><span class="mt">계획형<small>Day별 시간표</small></span>
+    </button>
+    <button class="mode" id="modeP" role="tab" aria-selected="false" type="button">
+      <span class="ml">P</span><span class="mt">탐색형<small>지역별 둘러보기</small></span>
+    </button>
+  </div>
+
+  <!-- J 뷰: 기존 Day별 계획 -->
+  <div id="jview">
+    <div class="progress-wrap">
+      <span class="txt">여행 체크 <b id="doneCount">0</b>/<b id="totalCount">0</b></span>
+      <div class="pbar"><i id="pbarFill"></i></div>
+      <button class="reset" id="resetBtn" type="button">초기화</button>
+    </div>
+
+    <div class="tabs" id="tabs" role="tablist" aria-label="일자 선택"></div>
+
+    <div id="panels"></div>
+
+    <div class="navbtns">
+      <button class="navbtn" id="prevBtn" type="button">← 이전 날</button>
+      <button class="navbtn" id="nextBtn" type="button">다음 날 →</button>
+    </div>
+  </div>
+
+  <!-- P 뷰: 지역별 탐색 -->
+  <div id="pview" hidden>
+    <p class="pintro">정해진 순서 없이, 마음 가는 지역부터 둘러보세요. 각 장소·맛집은 눌러서 지도로 바로 열 수 있어요.</p>
+    <div id="areas"></div>
+  </div>
+
+  <div class="seclabel"><h2>실용 정보</h2><span class="rule"></span></div>
+  <div class="info-grid">
+    <div class="info">
+      <h3><span class="dot"></span>10월 초 날씨</h3>
+      <ul>
+        <li>봄, 평균 <b>14–23℃</b> · 아침저녁 선선</li>
+        <li>서머타임 → <b>일몰 ~19시</b>, 긴 저녁</li>
+        <li>UV 강함 — <b>선크림·모자·선글라스</b></li>
+        <li>겉옷 1벌(블루마운틴·저녁용)</li>
+      </ul>
+    </div>
+    <div class="info">
+      <h3><span class="dot j"></span>교통</h3>
+      <ul>
+        <li><b>Opal 카드</b>/컨택리스 — 기차·버스·페리·경전철 통합</li>
+        <li>일요일·주간 요금 상한(캡) 유리</li>
+        <li>공항↔시내 <b>에어포트링크</b> ~13분</li>
+        <li>근교는 기차 또는 소규모 투어</li>
+      </ul>
+    </div>
+    <div class="info">
+      <h3><span class="dot c"></span>1인 예산 <small>(항공 제외)</small></h3>
+      <table class="budget"><tbody>
+        <tr><td>숙소(2인1실 1/2)</td><td>A$110/일</td></tr>
+        <tr><td>식사·카페</td><td>A$60/일</td></tr>
+        <tr><td>교통(Opal)</td><td>A$15/일</td></tr>
+        <tr><td>입장·투어</td><td>A$35/일</td></tr>
+      </tbody><tfoot><tr><td>1일 합계</td><td>≈ A$220</td></tr></tfoot></table>
+    </div>
+  </div>
+
+  <div class="callout"><b>계절 참고 — Sculpture by the Sea.</b> 본다이~탬버라마 해안 야외 조각전은 <b>2026년 10월 16일부터</b>라 이번 여행(10/3–10/9)과 겹치지 않습니다. 다만 본다이→쿠지 해안 산책로는 상시 개방이라 Day 2에 즐길 수 있습니다.</div>
+  <div class="callout" style="border-left-color:var(--jacaranda)"><b>예약 권장.</b> 오페라하우스 내부 투어, 타롱가 동물원, 헌터밸리 소규모 와이너리 투어, 시닉월드(블루마운틴)는 온라인 사전 예매를 권합니다. 각 일정 카드의 <b>보라색 예매 버튼</b>으로 클룩·트립닷컴·공식 사이트에 바로 연결됩니다.</div>
+  <div class="callout" style="border-left-color:var(--harbour)"><b>예매 팁.</b> 같은 상품이라도 플랫폼마다 가격·포함 내역(픽업·점심·한국어 가이드)이 다릅니다. <b>여러 링크를 비교</b>하고, 날짜·인원과 <b>무료 취소 가능 여부</b>를 확인한 뒤 결제하세요. 링크는 각 플랫폼의 상품/카테고리 페이지로 연결되며, 판매 상황에 따라 개별 상품이 바뀔 수 있습니다.</div>
+  <div class="callout"><b>출발 전 체크.</b> ① <b>Opal 카드/컨택리스</b>: 기차·버스·페리·경전철 전부 탭 결제(종이표 없음), <b>Day 2(일)는 대중교통 요금 상한일</b>이라 이동 많은 동부 해안 일정 배치가 유리. ② <b>Day 7 출국편 시각 확인</b>: 국제선은 3시간 전 도착 권장 — 오후편이면 16시 쇼핑 종료가 빠듯하니 항공편에 맞춰 조정. ③ <b>본다이 아이스버그</b>는 청소로 휴장하는 날이 있어 수영 계획 시 당일 운영 확인.</div>
+
+  <footer>
+    성인 2인 · 표준 예산 기준 참고 일정입니다. 운영시간·요금·이벤트 날짜(피시마켓 신축 이전 등)는 방문 전 공식 사이트에서 재확인하세요. · 통화 A$ = 호주 달러 · 체크 상태는 이 브라우저에 저장됩니다.
+  </footer>
+</div>
+
+<script>
+/* ── 진입 인트로 제어 ── */
+(function(){
+  const intro=document.getElementById("intro");
+  if(!intro)return;
+  const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const seen=(function(){ try{ return sessionStorage.getItem("syd_intro_seen"); }catch(e){ return null; } })();
+  // 모션 최소화 설정이거나 세션 내 이미 봤으면 즉시 숨김
+  if(reduce||seen){ intro.classList.add("hide"); return; }
+  document.body.classList.add("introlock");
+  let done=false;
+  function finish(){
+    if(done)return; done=true;
+    intro.classList.add("hide");
+    document.body.classList.remove("introlock");
+    try{ sessionStorage.setItem("syd_intro_seen","1"); }catch(e){}
+  }
+  // CSS 애니메이션(약 3.8초)이 끝나면 스크롤 잠금 해제
+  setTimeout(finish, 3900);
+  // 스킵 버튼 / 화면 클릭 시 즉시 종료
+  const skip=document.getElementById("introSkip");
+  if(skip)skip.addEventListener("click",finish);
+  intro.addEventListener("click",function(e){ if(e.target===intro)finish(); });
+})();
+
+/* ── 일정 데이터 ── */
+const DAYS = [
+  { n:1, date:"10월 3일", dow:"토", theme:"오페라하우스 · 더 록스", illus:"opera",
+    blocks:[
+      {time:"11:00–11:15", dur:"15분", move:1, t:"공항 → 시내 이동", note:"에어포트링크 기차로 공항역→서큘러 키(약 13분). 숙소에 짐 보관.", map:"Circular Quay Station"},
+      {time:"12:00–14:30", dur:"2.5시간", t:"서큘러 키 & 오페라하우스", note:"하버 첫 산책, 오페라하우스 외관·계단 사진. 근처에서 점심.", map:"Sydney Opera House",
+        eat:{near:"서큘러 키·더 록스", q:"Circular Quay Sydney", spots:[["Opera Bar","하버뷰 캐주얼 다이닝·바","Opera Bar Sydney"],["Cafe Sydney","커스텀하우스 루프탑, 하버 전망","Cafe Sydney Customs House"]]}},
+      {time:"14:30–17:00", dur:"2.5시간", t:"더 록스 위켄드 마켓", note:"도보 10분 이동. 주말에만 열리는 수공예·먹거리 마켓, 개척기 골목 산책.", map:"The Rocks Markets Sydney"},
+      {time:"17:00–18:15", dur:"1.25시간", t:"하버브리지 선셋 워크", note:"밀슨스 포인트에서 보행로(무료)로 건너며 황금빛 노을. ※ 10/3은 서머타임 전날이라 일몰 18:00 — 17시부터 걸어야 노을을 봅니다(서머타임은 10/4 시작).", map:"Sydney Harbour Bridge Milsons Point"}
+    ],
+    tips:[["이동","공항→시내 에어포트링크 ~13분"],["예약","오페라하우스 투어는 Day 3",1]] },
+  { n:2, date:"10월 4일", dow:"일", theme:"본다이 → 쿠지 코스탈 워크", illus:"coast",
+    blocks:[
+      {time:"09:00–09:40", dur:"40분", move:1, t:"시내 → 본다이 이동", note:"버스 333 또는 기차+버스로 본다이 비치 도착.", map:"Bondi Beach"},
+      {time:"09:40–11:30", dur:"1시간 50분", t:"본다이 비치 & 아이스버그", note:"상징적 해변과 아이스버그 수영장, 해변 카페 브런치.", map:"Bondi Icebergs",
+        eat:{near:"본다이 비치", q:"Bondi Beach cafe", spots:[["Bills Bondi","호주식 브런치의 대표 (리코타 핫케이크)","Bills Bondi"],["Porch and Parlour","해변 인근 인기 브런치 카페","Porch and Parlour Bondi"]]}},
+      {time:"11:30–14:00", dur:"2.5시간", t:"본다이→쿠지 해안 산책로", note:"약 6km 트레일(중간 휴식 포함). 절벽·후미·해변을 잇는 시드니 최고의 산책로.", map:"Bondi to Coogee Coastal Walk"},
+      {time:"14:00–14:40", dur:"40분", move:1, t:"쿠지 → 서리힐스 이동", note:"버스로 서리힐스/달링허스트 방면 이동.", map:"Surry Hills Sydney"},
+      {time:"18:00–20:30", dur:"2.5시간", t:"서리힐스 다이닝", note:"로컬 다이닝·와인바에서 저녁. (오후 휴식 후)", map:"Surry Hills Sydney restaurants",
+        eat:{near:"서리힐스", q:"Surry Hills Sydney restaurants", spots:[["Pellegrino 2000","분위기 좋은 이탈리안 (예약 권장)","Pellegrino 2000 Surry Hills"],["Porteño","아르헨티나식 화덕 그릴","Porteno Surry Hills"]]}}
+    ],
+    tips:[["준비물","선크림·모자·물 (봄 UV 강함)"],["이동","시내→본다이 버스 333"]] },
+  { n:3, date:"10월 5일", dow:"월", theme:"타롱가 동물원 · 오페라하우스 투어", illus:"zoo",
+    blocks:[
+      {time:"09:15–09:30", dur:"15분", move:1, t:"서큘러 키 → 타롱가 페리", note:"페리 이동 자체가 하버 크루즈(약 12분).", map:"Taronga Zoo Wharf"},
+      {time:"09:30–13:30", dur:"4시간", t:"타롱가 동물원", note:"코알라·캥거루를 하버 뷰와 함께. 규모가 커 4시간 권장. Sky Safari 곤돌라로 위→아래 동선.", map:"Taronga Zoo Sydney",
+        book:[["클룩","https://www.klook.com/ko/activity/1784-taronga-zoo-sydney/"],["트립닷컴","https://kr.trip.com/things-to-do/detail/97955860"],["클룩 검색","https://www.klook.com/ko/search/?query=%ED%83%80%EB%A1%B1%EA%B0%80%20%EB%8F%99%EB%AC%BC%EC%9B%90"]]},
+      {time:"13:30–14:00", dur:"30분", move:1, t:"페리로 시내 복귀", note:"서큘러 키로 돌아와 간단히 점심.", map:"Circular Quay"},
+      {time:"15:00–16:00", dur:"1시간", t:"오페라하우스 내부 투어", note:"건축·무대 뒤 이야기 가이드 투어(사전 예약). 한국어 투어·15:00 슬롯 있음.", map:"Sydney Opera House Tour",
+        book:[["공식","https://www.sydneyoperahouse.com/tours/sydney-opera-house-tour"],["클룩","https://www.klook.com/en-US/destination/p50001714-sydney-opera-house/"]]},
+      {time:"16:00–17:00", dur:"1시간", t:"보태닉 가든 & 매쿼리스 포인트", note:"도보로 이어지는 왕립식물원 산책, 오페라하우스+브리지 포토스팟.", map:"Mrs Macquaries Point"},
+      {time:"18:00–20:00", dur:"2시간", t:"바랑가루 하버사이드", note:"워터프런트 레스토랑·바에서 노을과 시푸드.", map:"Barangaroo Sydney",
+        eat:{near:"바랑가루", q:"Barangaroo Sydney restaurants", spots:[["Bel & Brio","워터프런트 이탈리안·바","Bel and Brio Barangaroo"],["Cirrus Dining","고급 시푸드 (노을 뷰)","Cirrus Dining Barangaroo"]]}}
+    ],
+    tips:[["예약","동물원·오페라하우스 온라인 예매",1],["팁","Sky Safari 곤돌라로 동선 최적화"]] },
+  { n:4, date:"10월 6일", dow:"화", theme:"근교 ① 블루마운틴", illus:"mountain",
+    blocks:[
+      {time:"07:40–09:40", dur:"약 2시간", move:1, t:"중앙역 → 카툼바 (기차)", note:"블루마운틴 라인 기차로 이동(투어 이용 시 픽업). 편도 약 2시간.", map:"Central Station Sydney"},
+      {time:"09:40–12:00", dur:"2시간 20분", t:"카툼바 & 세 자매봉", note:"에코 포인트는 이른 오전이 한산. 시닉월드 케이블카·가파른 철도로 협곡 조망.", map:"Echo Point Three Sisters Katoomba",
+        book:[["클룩(시닉월드 투어)","https://www.klook.com/ko/activity/101180-blue-mountains-deluxe-day-tour-from-sydney/"],["트립닷컴","https://kr.trip.com/travel-guide/attraction/sydney/blue-mountains-national-park-10758254"],["클룩 검색","https://www.klook.com/ko/search/?query=%EB%B8%94%EB%A3%A8%EB%A7%88%EC%9A%B4%ED%8B%B4"]]},
+      {time:"12:00–15:30", dur:"3.5시간", t:"협곡 트레일 & 루라 마을", note:"짧은 부시워크로 유칼립투스 숲의 푸른 안개, 루라 빌리지에서 점심·티타임.", map:"Leura NSW",
+        eat:{near:"루라·카툼바", q:"Leura Blue Mountains cafe", spots:[["Cafe Leura","루라 대표 카페 (브런치·커피)","Cafe Leura"],["Echoes Restaurant","제이미슨 밸리 전망 다이닝","Echoes Restaurant Katoomba"]]}},
+      {time:"16:00–18:00", dur:"약 2시간", move:1, t:"카툼바 → 시내 복귀 (기차)", note:"저녁 시내 도착. 가볍게 마무리.", map:"Katoomba Station"}
+    ],
+    tips:[["이동","왕복 기차 ~4시간 — 이른 출발 권장"],["준비물","산 위는 서늘 — 겉옷 필수"]] },
+  { n:5, date:"10월 7일", dow:"수", theme:"근교 ② 헌터밸리 와이너리", illus:"wine",
+    blocks:[
+      {time:"08:00–10:00", dur:"약 2시간", move:1, t:"시내 → 헌터밸리 (투어 버스)", note:"기사 동반 소규모 투어 픽업. 시드니 북쪽 약 2시간.", map:"Hunter Valley wine region"},
+      {time:"10:00–15:30", dur:"5.5시간", t:"와이너리 3곳 테이스팅", note:"세미용·시라즈로 유명. 치즈·초콜릿 페어링, 와이너리 내 점심. 기사 동반 소규모 투어로 예약.", map:"Hunter Valley wineries",
+        book:[["클룩(헌터밸리 투어)","https://www.klook.com/en-HK/experiences/list/hunter-valley-tours/c533-cate9/"],["트립닷컴(한국어 가이드)","https://kr.trip.com/things-to-do/experiences/sydney-aerialtours"]],
+        eat:{near:"헌터밸리", q:"Hunter Valley cafe restaurant", spots:[["The Deck Cafe","와인 컨트리 인기 브런치·런치","The Deck Cafe Hunter Valley"],["Bistro Molines","프렌치 파인다이닝 (예약)","Bistro Molines Hunter Valley"]]}},
+      {time:"15:30–17:30", dur:"약 2시간", move:1, t:"헌터밸리 → 시내 복귀 (투어 버스)", note:"저녁 시내 도착. 여독 푸는 날.", map:"Sydney CBD"}
+    ],
+    tips:[["추천","기사 동반이라 음주 걱정 없음",1],["대안","와인 대신 포트 스티븐스(돌고래·모래언덕) 가능"]] },
+  { n:6, date:"10월 8일", dow:"목", theme:"피시마켓 · 달링하버 · 패딩턴", illus:"market",
+    blocks:[
+      {time:"10:00–12:00", dur:"2시간", t:"시드니 피시마켓 (신관)", note:"남반구 최대 수산시장. 굴·랍스터·피시앤칩스로 이른 점심. ※ 2026년 1월 블랙워틀베이(글리브, 1 Bridge Rd)로 이전 — 경전철 최근접역은 웬트워스파크(도보 6분).", map:"Sydney Fish Market Blackwattle Bay"},
+      {time:"12:00–12:20", dur:"20분", move:1, t:"피시마켓 → 달링하버 (경전철 L1)", note:"웬트워스파크역에서 경전철 L1로 몇 정거장.", map:"Darling Harbour"},
+      {time:"12:20–15:30", dur:"3시간", t:"달링하버 & QVB", note:"워터프런트 산책, QVB 건축·쇼핑.", map:"Queen Victoria Building"},
+      {time:"15:30–16:00", dur:"30분", move:1, t:"→ 패딩턴 이동 (버스)", note:"버스로 패딩턴 방면 이동.", map:"Paddington Sydney"},
+      {time:"16:00–17:30", dur:"1.5시간", t:"패딩턴 골목 (자카란다는 시기상 이름)", note:"테라스하우스 거리·부티크 산책. ※ 시드니 자카란다는 10월 중순 개화·말 절정이라 10/8은 만개 전일 수 있음. 만개 명소는 패딩턴보다 키리빌리(McDougall St) — 방문 직전 개화 현황 확인 권장.", map:"Paddington Sydney"},
+      {time:"18:30–20:30", dur:"2시간", t:"차이나타운 or 뉴타운", note:"저렴하고 다양한 아시안 미식, 활기찬 나이트라이프.", map:"Newtown Sydney",
+        eat:{near:"차이나타운·뉴타운", q:"Chinatown Sydney restaurants", spots:[["Chat Thai","인기 태국 음식점 (합리적 가격)","Chat Thai Haymarket"],["Mary's Newtown","수제버거·캐주얼 (뉴타운)","Marys Newtown"]]}}
+    ],
+    tips:[["계절","자카란다 초입 — 키리빌리·패딩턴 골목"],["교통","경전철로 피시마켓·차이나타운 연결"]] },
+  { n:7, date:"10월 9일", dow:"금", theme:"맨리 페리 · 쇼핑 · 출국", illus:"ferry",
+    blocks:[
+      {time:"09:30–10:00", dur:"30분", move:1, t:"서큘러 키 → 맨리 (페리)", note:"하버를 가르는 최고의 뷰. 편도 약 30분.", map:"Manly Wharf"},
+      {time:"10:00–12:30", dur:"2.5시간", t:"맨리 비치 & 코르소", note:"해변·코르소 거리 산책, 브런치.", map:"Manly Beach Sydney",
+        eat:{near:"맨리 비치", q:"Manly Beach cafe restaurant", spots:[["Bluewater Cafe","해변 바로 앞 브런치·커피","Bluewater Cafe Manly"],["The Pantry Manly","오션프런트 캐주얼 다이닝","The Pantry Manly"]]}},
+      {time:"12:30–13:00", dur:"30분", move:1, t:"맨리 → 시내 (페리)", note:"서큘러 키로 복귀.", map:"Circular Quay"},
+      {time:"13:30–16:00", dur:"2.5시간", t:"피트 스트리트 몰 쇼핑 & 커피", note:"기념품·호주 브랜드, 스페셜티 커피의 본고장에서 플랫화이트.", map:"Pitt Street Mall Sydney"},
+      {time:"17:00–17:15", dur:"15분", move:1, t:"시내 → 공항 (에어포트링크)", note:"출국 일정에 맞춰 이동. (익일 새벽 출국 시 하루 더 여유)", map:"Sydney Airport"}
+    ],
+    tips:[["팁","Opal 잔액은 공항 기계에서 환불 가능"]] }
+];
+
+/* ── P(탐색형) 지역별 데이터 ── */
+const AREAS = [
+  { name:"하버 중심부", illus:"opera", tag:"랜드마크의 심장",
+    desc:"오페라하우스·하버브리지가 한눈에. 페리와 워터프런트 다이닝의 중심.",
+    places:[
+      ["오페라하우스","세계적 랜드마크·내부 투어","Sydney Opera House"],
+      ["하버브리지","보행로 무료 도보·파일런 전망대","Sydney Harbour Bridge"],
+      ["더 록스","개척기 골목·주말 마켓","The Rocks Sydney"],
+      ["로열 보태닉 가든 & 매쿼리스 포인트","포토스팟·산책","Mrs Macquaries Point"],
+      ["바랑가루","현대적 워터프런트 다이닝","Barangaroo Sydney"]
+    ],
+    eats:[["Opera Bar","하버뷰 캐주얼 바","Opera Bar Sydney"],["Cafe Sydney","루프탑 하버 전망","Cafe Sydney Customs House"],["Bel & Brio","바랑가루 이탈리안","Bel and Brio Barangaroo"]] },
+  { name:"동부 해안 & 서리힐스", illus:"coast", tag:"해변과 미식",
+    desc:"본다이의 해변 산책로와 서리힐스의 힙한 다이닝 신.",
+    places:[
+      ["본다이 비치 & 아이스버그","상징적 해변·수영장","Bondi Icebergs"],
+      ["본다이→쿠지 해안 산책로","6km 절벽 트레일","Bondi to Coogee Coastal Walk"],
+      ["서리힐스","카페·와인바·부티크","Surry Hills Sydney"]
+    ],
+    eats:[["Bills Bondi","리코타 핫케이크 브런치","Bills Bondi"],["Porch and Parlour","본다이 인기 카페","Porch and Parlour Bondi"],["Pellegrino 2000","서리힐스 이탈리안","Pellegrino 2000 Surry Hills"],["Porteño","아르헨티나 화덕 그릴","Porteno Surry Hills"]] },
+  { name:"북부 해안", illus:"ferry", tag:"페리로 만나는 바다",
+    desc:"페리 타고 건너는 타롱가 동물원과 맨리 비치.",
+    places:[
+      ["타롱가 동물원","하버뷰 코알라·캥거루","Taronga Zoo Sydney"],
+      ["맨리 비치 & 코르소","서핑 해변·거리","Manly Beach Sydney"]
+    ],
+    eats:[["Bluewater Cafe","맨리 해변 앞 브런치","Bluewater Cafe Manly"],["The Pantry Manly","오션프런트 다이닝","The Pantry Manly"]] },
+  { name:"시티 & 마켓", illus:"market", tag:"쇼핑·먹거리",
+    desc:"수산시장부터 자카란다 골목, 활기찬 미식 거리까지.",
+    places:[
+      ["시드니 피시마켓","남반구 최대 수산시장","Sydney Fish Market"],
+      ["달링하버 & QVB","워터프런트·건축 쇼핑","Queen Victoria Building"],
+      ["패딩턴","자카란다 골목·부티크","Paddington Sydney"],
+      ["차이나타운·뉴타운","아시안 미식·나이트라이프","Chinatown Sydney"],
+      ["피트 스트리트 몰","기념품·쇼핑","Pitt Street Mall Sydney"]
+    ],
+    eats:[["Chat Thai","합리적 태국 음식","Chat Thai Haymarket"],["Mary's Newtown","수제버거·캐주얼","Marys Newtown"]] },
+  { name:"근교 자연 (당일치기)", illus:"mountain", tag:"도시 밖으로",
+    desc:"기차·투어로 다녀오는 블루마운틴과 헌터밸리 와인 산지.",
+    places:[
+      ["블루마운틴 세 자매봉","에코 포인트·시닉월드","Echo Point Three Sisters Katoomba"],
+      ["루라 마을","아기자기한 산속 빌리지","Leura NSW"],
+      ["헌터밸리 와인 산지","호주 최고(古) 와이너리","Hunter Valley wine region"]
+    ],
+    eats:[["Cafe Leura","루라 대표 카페","Cafe Leura"],["Echoes Restaurant","제이미슨 밸리 전망","Echoes Restaurant Katoomba"],["The Deck Cafe","헌터밸리 브런치","The Deck Cafe Hunter Valley"]] }
+];
+
+/* ── 테마별 SVG 일러스트 (외부 이미지 없이 벡터로) ── */
+function illus(kind){
+  const sky='<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--sky-a)"/><stop offset="1" stop-color="var(--sky-b)"/></linearGradient></defs><rect width="800" height="190" fill="url(#sky)"/>';
+  const sun='<circle cx="670" cy="52" r="26" fill="var(--coral)" opacity=".55"/>';
+  const H='var(--harbour)', H2='var(--harbour-2)', J='var(--jacaranda)', C='var(--coral)';
+  let g='';
+  if(kind==="opera"){ // 오페라하우스 + 하버브리지
+    g=sun
+      +'<path d="M0 150 Q400 130 800 150 L800 190 L0 190 Z" fill="'+H+'" opacity=".22"/>'
+      +'<path d="M60 145 q30 -70 60 0 z" fill="'+H2+'"/><path d="M110 145 q34 -82 68 0 z" fill="'+H+'"/><path d="M170 145 q30 -66 60 0 z" fill="'+H2+'"/><path d="M225 145 q24 -52 48 0 z" fill="'+H+'"/>'
+      +'<path d="M470 60 q120 -34 240 0" stroke="'+J+'" stroke-width="7" fill="none"/><path d="M470 60 v40 M710 60 v40" stroke="'+J+'" stroke-width="7"/><rect x="455" y="98" width="270" height="8" fill="'+J+'"/>'
+      +'<g stroke="'+J+'" stroke-width="2" opacity=".6"><path d="M490 62 v40 M520 58 v42 M550 56 v46 M580 56 v46 M610 56 v46 M640 58 v42 M670 62 v40"/></g>'
+      +'<line x1="0" y1="145" x2="800" y2="145" stroke="'+H+'" stroke-width="2" opacity=".3"/>';
+  } else if(kind==="coast"){ // 해안 절벽 + 파도
+    g=sun
+      +'<path d="M0 120 C160 96 300 150 460 120 C600 96 700 140 800 118 L800 190 L0 190 Z" fill="'+H+'" opacity=".85"/>'
+      +'<path d="M0 138 C180 118 320 162 480 136 C640 112 720 152 800 134 L800 190 L0 190 Z" fill="'+H2+'"/>'
+      +'<path d="M0 150 L150 150 L120 120 L60 128 Z" fill="'+C+'" opacity=".4"/>'
+      +'<g stroke="#fff" stroke-width="2" opacity=".5" fill="none"><path d="M120 150 q20 -8 40 0 M200 156 q20 -8 40 0 M300 150 q20 -8 40 0"/></g>';
+  } else if(kind==="zoo"){ // 동물(코알라 실루엣) + 나무
+    g=sun
+      +'<path d="M0 155 Q400 140 800 155 L800 190 L0 190 Z" fill="'+H+'" opacity=".2"/>'
+      +'<rect x="150" y="70" width="14" height="90" rx="6" fill="'+H2+'"/><ellipse cx="157" cy="66" rx="55" ry="38" fill="'+H+'" opacity=".7"/><ellipse cx="120" cy="80" rx="34" ry="24" fill="'+J+'" opacity=".55"/>'
+      +'<g transform="translate(520 78)"><ellipse cx="0" cy="30" rx="42" ry="46" fill="'+H2+'"/><circle cx="0" cy="-8" r="34" fill="'+H+'"/><circle cx="-30" cy="-22" r="16" fill="'+H2+'"/><circle cx="30" cy="-22" r="16" fill="'+H2+'"/><ellipse cx="0" cy="0" rx="12" ry="9" fill="'+J+'"/><circle cx="-12" cy="-12" r="4" fill="#fff"/><circle cx="12" cy="-12" r="4" fill="#fff"/></g>';
+  } else if(kind==="mountain"){ // 세 자매봉 + 안개
+    g=sun
+      +'<path d="M0 150 L120 60 L240 150 Z" fill="'+H+'"/><path d="M180 150 L300 45 L420 150 Z" fill="'+H2+'"/><path d="M360 150 L470 70 L580 150 Z" fill="'+H+'" opacity=".85"/>'
+      +'<g fill="'+C+'" opacity=".8"><path d="M600 150 L636 96 L672 150 Z"/><path d="M648 150 L680 104 L712 150 Z"/><path d="M690 150 L716 112 L742 150 Z"/></g>'
+      +'<path d="M0 150 Q400 132 800 150 L800 190 L0 190 Z" fill="'+H+'" opacity=".18"/>'
+      +'<path d="M0 128 Q200 118 400 128 T800 128" stroke="#fff" stroke-width="6" opacity=".35" fill="none"/>';
+  } else if(kind==="wine"){ // 포도밭 + 잔
+    g=sun
+      +'<path d="M0 150 Q400 138 800 150 L800 190 L0 190 Z" fill="'+H+'" opacity=".22"/>'
+      +'<g stroke="'+H2+'" stroke-width="3" opacity=".6"><path d="M60 150 v-40 M160 150 v-40 M260 150 v-40 M360 150 v-40"/><path d="M40 118 h340 M40 132 h340"/></g>'
+      +'<g fill="'+J+'" opacity=".8"><circle cx="80" cy="112" r="7"/><circle cx="96" cy="116" r="7"/><circle cx="88" cy="126" r="7"/><circle cx="180" cy="112" r="7"/><circle cx="196" cy="116" r="7"/><circle cx="188" cy="126" r="7"/></g>'
+      +'<g transform="translate(600 60)"><path d="M-24 0 h48 l-8 46 a16 16 0 0 1 -32 0 Z" fill="'+C+'" opacity=".85"/><rect x="-3" y="46" width="6" height="34" fill="'+H2+'"/><rect x="-22" y="80" width="44" height="6" rx="3" fill="'+H2+'"/></g>';
+  } else if(kind==="market"){ // 시장 차양 + 도시
+    g=sun
+      +'<path d="M0 155 Q400 142 800 155 L800 190 L0 190 Z" fill="'+H+'" opacity=".2"/>'
+      +'<g><rect x="80" y="70" width="34" height="88" fill="'+H2+'" opacity=".7"/><rect x="130" y="52" width="30" height="106" fill="'+H+'" opacity=".7"/><rect x="176" y="82" width="30" height="76" fill="'+H2+'" opacity=".6"/></g>'
+      +'<g transform="translate(430 84)"><path d="M0 0 h260 v14 h-260 Z" fill="'+H+'"/>'
+      +'<g fill="'+C+'" opacity=".8"><path d="M0 14 q16 22 32 0 Z"/><path d="M64 14 q16 22 32 0 Z"/><path d="M128 14 q16 22 32 0 Z"/><path d="M192 14 q16 22 32 0 Z"/></g>'
+      +'<g fill="'+J+'" opacity=".75"><path d="M32 14 q16 22 32 0 Z"/><path d="M96 14 q16 22 32 0 Z"/><path d="M160 14 q16 22 32 0 Z"/><path d="M224 14 q16 22 32 0 Z"/></g>'
+      +'<rect x="8" y="52" width="244" height="4" fill="'+H2+'"/></g>';
+  } else { // ferry — 페리 + 물결
+    g=sun
+      +'<path d="M0 128 C200 112 300 140 500 124 C640 112 720 138 800 122 L800 190 L0 190 Z" fill="'+H+'" opacity=".8"/>'
+      +'<path d="M0 148 C220 132 340 158 520 142 C660 130 730 154 800 140 L800 190 L0 190 Z" fill="'+H2+'"/>'
+      +'<g transform="translate(300 92)"><path d="M0 24 h180 l-20 30 h-140 Z" fill="#fff" opacity=".9"/><rect x="24" y="2" width="120" height="24" rx="4" fill="'+J+'" opacity=".85"/><rect x="36" y="8" width="16" height="12" fill="var(--sky-b)"/><rect x="62" y="8" width="16" height="12" fill="var(--sky-b)"/><rect x="88" y="8" width="16" height="12" fill="var(--sky-b)"/><rect x="114" y="8" width="16" height="12" fill="var(--sky-b)"/><rect x="150" y="-14" width="8" height="18" fill="'+C+'"/></g>'
+      +'<g stroke="#fff" stroke-width="2" opacity=".45" fill="none"><path d="M120 160 q20 -7 40 0 M560 156 q20 -7 40 0"/></g>';
+  }
+  return '<svg class="hero-illus" viewBox="0 0 800 190" preserveAspectRatio="xMidYMid meet" role="img" aria-label="일정 일러스트">'+sky+g+'</svg>';
+}
+
+const CHK_SVG='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const MAP_SVG='<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg>';
+const MOVE_SVG='<svg class="moveicon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const TICKET_SVG='<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4 6h16a1 1 0 011 1v3a2 2 0 000 4v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-3a2 2 0 000-4V7a1 1 0 011-1zm11 2v8h1V8h-1z"/></svg>';
+const EAT_SVG='<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M6 2v8a2 2 0 001.5 1.94V22h1V11.94A2 2 0 0010 10V2H9v6H8V2H7v6H6V2zm10 0c-1.3 0-2.5 1.9-2.5 4.5 0 2.1.9 3.6 2 4.1V22h1V2z"/></svg>';
+
+const STORE_KEY="sydney2026_checks";
+let checks = loadChecks();
+function loadChecks(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY))||{}; }catch(e){ return {}; } }
+function saveChecks(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(checks)); }catch(e){} }
+
+let totalBlocks=0;
+DAYS.forEach(d=>totalBlocks+=d.blocks.length);
+document.getElementById("totalCount").textContent=totalBlocks;
+
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const gmap=q=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+
+/* 탭 + 패널 생성 */
+const tabsEl=document.getElementById("tabs"), panelsEl=document.getElementById("panels");
+DAYS.forEach((d,i)=>{
+  const tab=document.createElement("button");
+  tab.className="tab"; tab.type="button"; tab.setAttribute("role","tab");
+  tab.setAttribute("aria-selected", i===0?"true":"false");
+  tab.dataset.idx=i;
+  tab.innerHTML='<span class="d">Day</span><span class="n">'+d.n+'</span><span class="dow">'+d.dow+'</span>';
+  tab.addEventListener("click",()=>selectDay(i));
+  tabsEl.appendChild(tab);
+
+  const p=document.createElement("section");
+  p.className="panel"+(i===0?" active":""); p.setAttribute("role","tabpanel"); p.dataset.idx=i;
+  let blocksHtml=d.blocks.map((b,bi)=>{
+    const id=d.n+"-"+bi, on=!!checks[id];
+    const maplink=b.map?'<a class="maplink" href="'+gmap(b.map)+'" target="_blank" rel="noopener">'+MAP_SVG+' 지도에서 보기</a>':'';
+    const dur=b.dur?'<span class="dur">'+esc(b.dur)+'</span>':'';
+    const moveIcon=b.move?MOVE_SVG+' ':'';
+    let booking='';
+    if(b.book&&b.book.length){
+      booking='<div class="booking"><span class="booklab">'+TICKET_SVG+' 예매</span>'
+        + b.book.map(bk=>'<a class="bookbtn" href="'+bk[1]+'" target="_blank" rel="noopener">'+esc(bk[0])+'</a>').join('')
+        + '</div>';
+    }
+    let eating='';
+    if(b.eat){
+      const spots=b.eat.spots.map(s=>
+        '<a class="eatspot" href="'+gmap(s[2])+'" target="_blank" rel="noopener">'
+        +'<b>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></a>').join('');
+      const more='<a class="eatmore" href="'+gmap(b.eat.q+" 맛집 카페")+'" target="_blank" rel="noopener">근처 더 보기 →</a>';
+      eating='<div class="eat"><div class="eatlab">'+EAT_SVG+' 근처 맛집·카페 <small>('+esc(b.eat.near)+')</small></div>'
+        +'<div class="eatspots">'+spots+'</div>'+more+'</div>';
+    }
+    return '<div class="blk'+(on?' checked':'')+(b.move?' move':'')+'" data-id="'+id+'">'
+      +'<button class="chk" type="button" aria-pressed="'+on+'" aria-label="일정 완료 체크">'+CHK_SVG+'</button>'
+      +'<div class="when">'+esc(b.time||'')+dur+'</div>'
+      +'<div class="what"><b>'+moveIcon+esc(b.t)+'</b><span class="note">'+esc(b.note)+'</span>'+maplink+booking+eating+'</div></div>';
+  }).join("");
+  let tipsHtml=d.tips.map(t=>'<span class="tip'+(t[2]?' coral':'')+'"><span class="lab">'+esc(t[0])+'</span>'+esc(t[1])+'</span>').join("");
+  p.innerHTML='<div class="daycard">'+illus(d.illus)+'<div class="daybody">'
+    +'<div class="day-head"><span class="badge">Day '+d.n+'</span><h2>'+esc(d.date)+'</h2></div>'
+    +'<p class="day-theme">'+esc(d.theme)+'</p>'
+    +'<div class="blocks">'+blocksHtml+'</div>'
+    +'<div class="daytips">'+tipsHtml+'</div></div></div>';
+  panelsEl.appendChild(p);
+});
+
+/* 체크 이벤트 (위임) */
+panelsEl.addEventListener("click",e=>{
+  const btn=e.target.closest(".chk"); if(!btn)return;
+  const blk=btn.closest(".blk"), id=blk.dataset.id;
+  const now=!(checks[id]); checks[id]=now;
+  btn.setAttribute("aria-pressed",now); blk.classList.toggle("checked",now);
+  saveChecks(); updateProgress();
+});
+
+let cur=0;
+function selectDay(i){
+  cur=i;
+  document.querySelectorAll(".tab").forEach((t,ti)=>t.setAttribute("aria-selected", ti===i?"true":"false"));
+  document.querySelectorAll(".panel").forEach((p,pi)=>p.classList.toggle("active",pi===i));
+  document.getElementById("prevBtn").disabled=(i===0);
+  document.getElementById("nextBtn").disabled=(i===DAYS.length-1);
+  document.querySelector('.tab[data-idx="'+i+'"]').scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"});
+}
+document.getElementById("prevBtn").addEventListener("click",()=>{ if(cur>0)selectDay(cur-1); });
+document.getElementById("nextBtn").addEventListener("click",()=>{ if(cur<DAYS.length-1)selectDay(cur+1); });
+
+function updateProgress(){
+  let done=0;
+  DAYS.forEach(d=>d.blocks.forEach((b,bi)=>{ if(checks[d.n+"-"+bi])done++; }));
+  document.getElementById("doneCount").textContent=done;
+  document.getElementById("pbarFill").style.width=(done/totalBlocks*100)+"%";
+  // 탭별 완료 표시
+  DAYS.forEach((d,i)=>{
+    const all=d.blocks.every((b,bi)=>checks[d.n+"-"+bi]);
+    document.querySelector('.tab[data-idx="'+i+'"]').classList.toggle("done",all);
+  });
+}
+document.getElementById("resetBtn").addEventListener("click",()=>{
+  checks={}; saveChecks();
+  document.querySelectorAll(".chk").forEach(b=>b.setAttribute("aria-pressed","false"));
+  document.querySelectorAll(".blk").forEach(b=>b.classList.remove("checked"));
+  updateProgress();
+});
+
+selectDay(0);
+updateProgress();
+
+/* ── P(탐색형) 지역별 뷰 렌더링 ── */
+const areasEl=document.getElementById("areas");
+areasEl.innerHTML=AREAS.map(a=>{
+  const places=a.places.map(p=>
+    '<a class="pplace" href="'+gmap(p[2])+'" target="_blank" rel="noopener">'
+    +'<b>'+esc(p[0])+'</b><span>'+esc(p[1])+'</span></a>').join('');
+  const eats=a.eats.map(e=>
+    '<a class="peat" href="'+gmap(e[2])+'" target="_blank" rel="noopener">'
+    +esc(e[0])+'<small>'+esc(e[1])+'</small></a>').join('');
+  return '<section class="area">'
+    + illus(a.illus)
+    + '<div class="area-body">'
+    + '<div class="area-head"><h2>'+esc(a.name)+'</h2><span class="area-tag">'+esc(a.tag)+'</span></div>'
+    + '<p class="area-desc">'+esc(a.desc)+'</p>'
+    + '<div class="area-sec"><div class="area-lab">'+MAP_SVG+' 가볼 곳</div><div class="pplaces">'+places+'</div></div>'
+    + '<div class="area-sec"><div class="area-lab eat">'+EAT_SVG+' 맛집·카페</div><div class="peats">'+eats+'</div></div>'
+    + '</div></section>';
+}).join("");
+
+/* ── 모드 전환 J/P ── */
+const jview=document.getElementById("jview"), pview=document.getElementById("pview");
+const modeJ=document.getElementById("modeJ"), modeP=document.getElementById("modeP");
+function setMode(m){
+  const isJ=(m==="J");
+  modeJ.setAttribute("aria-selected",isJ); modeP.setAttribute("aria-selected",!isJ);
+  jview.hidden=!isJ; pview.hidden=isJ;
+  try{ localStorage.setItem("syd_mode",m); }catch(e){}
+}
+modeJ.addEventListener("click",()=>setMode("J"));
+modeP.addEventListener("click",()=>setMode("P"));
+let savedMode="J"; try{ savedMode=localStorage.getItem("syd_mode")||"J"; }catch(e){}
+setMode(savedMode);
+</script>
+</body>
+</html>

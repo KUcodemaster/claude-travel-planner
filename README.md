@@ -24,6 +24,8 @@ Give it a destination and length of stay, and the skill will:
   *Nearby eats + booking links (Google Maps / Klook / Trip.com / official)*
 - ✅ **체크리스트·진행률**, 다크/라이트, **모바일 반응형**, 진입 애니메이션
   *Checklist progress, dark/light, mobile-responsive, intro animation*
+- 📲 **PWA** — 홈 화면 설치 + 오프라인 사용(여행지에서 인터넷 없이 열람). 단일 HTML 인라인 구현
+  *Installable & offline-capable PWA (view without internet abroad) — inlined in the single HTML file*
 
 ---
 

@@ -79,6 +79,18 @@ This skill turns a destination and travel dates into a polished, self-contained 
 - **테마별 SVG 일러스트**(외부 이미지 없이 인라인 벡터 — CSP·저작권 안전)
 - **구글맵 링크**(장소·맛집), **예매 버튼**(공식+플랫폼 하이브리드, 폴백으로 검색 링크)
 - **진입 인트로 애니메이션**(선택), **반응형**(모바일 뷰), 다크/라이트 테마
+- **PWA(설치·오프라인)** — 아래 3-1 참고
+
+### 3-1. PWA (프로그레시브 웹 앱) — 단일 HTML 인라인 방식
+
+여행 페이지는 **여행지에서 오프라인으로 볼 일이 많으므로 PWA를 기본 포함**합니다. 단일 HTML을 유지한 채 파일 분리 없이 인라인으로 구현합니다(구현은 template.html의 마지막 `<script>` 블록에 있음):
+
+- **manifest**: JS에서 객체를 만들어 `data:application/manifest+json,...` URI로 `<head>`에 주입. 아이콘은 외부 이미지 대신 **이모지를 SVG data URI**로(테마색 배경 + 이모지). `name`/`theme_color`/`background_color`/`icon 이모지`만 여행지에 맞게 바꾸면 됨
+- **Service Worker**: SW 코드를 문자열로 만들어 **Blob URL로 등록**. network-first + 캐시 폴백으로 방문 페이지를 오프라인 제공. `location.protocol`이 http(s)일 때만 등록(파일 열기 `file://`에선 스킵)
+- **설치 버튼**: `beforeinstallprompt`를 잡아 우하단 "앱으로 설치" 버튼 노출, iOS 등 미지원 시 "공유 → 홈 화면에 추가" 토스트 안내. standalone으로 이미 열렸으면 버튼 숨김
+- iOS 대응: `apple-touch-icon`, `apple-mobile-web-app-capable` 메타 추가
+
+주의: **오프라인·설치는 https 배포(또는 localhost)에서 동작**하고 `file://`·Artifact 미리보기에선 제한됩니다. 배포 대상이 정적 호스팅(Vercel 등)일 때 실효가 있습니다.
 
 ### 4. 디자인 원칙 (frontend-design 준수)
 

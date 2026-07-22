@@ -354,6 +354,19 @@
     .intro{animation:none;opacity:0;visibility:hidden;pointer-events:none}
     .plane,.ticket,.dash,.intro-cap,.intro-skip{animation:none}
   }
+
+  /* ═══ PWA 설치 버튼 & 토스트 ═══ */
+  #pwaInstall{position:fixed;right:16px;bottom:16px;z-index:60;
+    background:linear-gradient(150deg,var(--jacaranda),var(--harbour));color:#fff;border:none;
+    border-radius:999px;padding:11px 18px;font-family:inherit;font-size:.86rem;font-weight:700;
+    cursor:pointer;box-shadow:0 6px 20px var(--shadow);transition:transform .12s,filter .15s}
+  #pwaInstall:hover{filter:brightness(1.08)} #pwaInstall:active{transform:scale(.96)}
+  #pwaInstall[hidden]{display:none}
+  #pwaToast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:61;
+    background:var(--ink);color:var(--paper);border:1px solid var(--line);border-radius:12px;
+    padding:11px 18px;font-size:.85rem;box-shadow:0 8px 24px var(--shadow);max-width:88%;text-align:center}
+  #pwaToast[hidden]{display:none}
+  @media (prefers-reduced-motion:reduce){#pwaInstall{transition:none}}
 </style>
 </head>
 <body>
@@ -839,5 +852,98 @@ modeP.addEventListener("click",()=>setMode("P"));
 let savedMode="J"; try{ savedMode=localStorage.getItem("syd_mode")||"J"; }catch(e){}
 setMode(savedMode);
 </script>
+<!-- ═══ PWA (설치 가능 + 오프라인) — 단일 HTML 인라인 구현 ═══ -->
+<button id="pwaInstall" type="button" hidden aria-label="홈 화면에 앱으로 추가">⤓ 앱으로 설치</button>
+<div id="pwaToast" role="status" hidden></div>
+<script>
+(function(){
+  "use strict";
+  var APP_NAME="여행 플래너", THEME="#0a5a6b", BG="#f4efe4", ICON_EMOJI="✈️";
+
+  /* 1) 아이콘: 이모지를 SVG data URI로 (외부 이미지 불필요, CSP 안전) */
+  function iconURI(size){
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+size+'" height="'+size+'">'
+      +'<rect width="100%" height="100%" rx="'+Math.round(size*0.22)+'" fill="'+THEME+'"/>'
+      +'<text x="50%" y="50%" dy=".08em" font-size="'+Math.round(size*0.56)+'" text-anchor="middle" dominant-baseline="middle">'+ICON_EMOJI+'</text></svg>';
+    return "data:image/svg+xml;utf8,"+encodeURIComponent(svg);
+  }
+
+  /* 2) manifest를 data URI로 만들어 head에 주입 */
+  var manifest={
+    name:APP_NAME, short_name:APP_NAME, start_url:".", scope:".",
+    display:"standalone", background_color:BG, theme_color:THEME,
+    icons:[
+      {src:iconURI(192),sizes:"192x192",type:"image/svg+xml",purpose:"any maskable"},
+      {src:iconURI(512),sizes:"512x512",type:"image/svg+xml",purpose:"any maskable"}
+    ]
+  };
+  var mlink=document.createElement("link");
+  mlink.rel="manifest";
+  mlink.href="data:application/manifest+json,"+encodeURIComponent(JSON.stringify(manifest));
+  document.head.appendChild(mlink);
+  // iOS 홈화면 아이콘
+  var alink=document.createElement("link");
+  alink.rel="apple-touch-icon"; alink.href=iconURI(180);
+  document.head.appendChild(alink);
+  var amc=document.createElement("meta");
+  amc.name="apple-mobile-web-app-capable"; amc.content="yes";
+  document.head.appendChild(amc);
+
+  /* 3) Service Worker: 현재 페이지를 캐싱해 오프라인 제공 (Blob URL로 인라인) */
+  // file:// 로 열면 SW 등록이 막히므로 https/localhost에서만 시도
+  if("serviceWorker" in navigator && location.protocol.indexOf("http")===0){
+    var swCode=[
+      'var C="travel-pwa-v1";',
+      'self.addEventListener("install",function(e){',
+      '  self.skipWaiting();',
+      '  e.waitUntil(caches.open(C).then(function(c){return c.add(new Request(location.pathname||"./",{cache:"reload"}));}));',
+      '});',
+      'self.addEventListener("activate",function(e){',
+      '  e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.map(function(k){if(k!==C)return caches.delete(k);}));}).then(function(){return self.clients.claim();}));',
+      '});',
+      'self.addEventListener("fetch",function(e){',
+      '  if(e.request.method!=="GET")return;',
+      '  e.respondWith(',
+      '    fetch(e.request).then(function(res){',
+      '      var copy=res.clone();',
+      '      caches.open(C).then(function(c){c.put(e.request,copy).catch(function(){});});',
+      '      return res;',
+      '    }).catch(function(){',
+      '      return caches.match(e.request).then(function(m){ return m || caches.match(location.pathname) || caches.match("./"); });',
+      '    })',
+      '  );',
+      '});'
+    ].join("\n");
+    var blob=new Blob([swCode],{type:"text/javascript"});
+    var swURL=URL.createObjectURL(blob);
+    // 주의: Blob SW의 scope는 Blob URL 경로라 실제 오프라인 캐싱은 same-origin 배포에서 가장 잘 동작.
+    navigator.serviceWorker.register(swURL).catch(function(){ /* 조용히 실패 */ });
+  }
+
+  /* 4) 설치 안내 버튼 (beforeinstallprompt) */
+  var deferred=null, btn=document.getElementById("pwaInstall"), toast=document.getElementById("pwaToast");
+  function showToast(msg){ if(!toast)return; toast.textContent=msg; toast.hidden=false;
+    setTimeout(function(){toast.hidden=true;},3500); }
+  window.addEventListener("beforeinstallprompt",function(e){
+    e.preventDefault(); deferred=e; if(btn)btn.hidden=false;
+  });
+  if(btn) btn.addEventListener("click",function(){
+    if(deferred){
+      deferred.prompt();
+      deferred.userChoice.then(function(c){
+        if(c && c.outcome==="accepted"){ btn.hidden=true; }
+        deferred=null;
+      });
+    } else {
+      // iOS 등 beforeinstallprompt 미지원: 수동 안내
+      showToast("공유 메뉴 → '홈 화면에 추가'로 설치할 수 있어요");
+    }
+  });
+  window.addEventListener("appinstalled",function(){ if(btn)btn.hidden=true; showToast("설치 완료! 홈 화면에서 열 수 있어요"); });
+  // 이미 standalone(설치됨)로 열렸으면 버튼 숨김
+  if(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches){ if(btn)btn.hidden=true; }
+})();
+</script>
+
 </body>
 </html>
